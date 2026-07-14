@@ -319,15 +319,24 @@
     margin-bottom:12px;
   }
 
+  .card.has-photo{
+    display:flex;
+    gap:20px;
+    align-items:flex-start;
+  }
+
   .card .photo{
-    width:100%;
-    height:180px;
+    width:160px;
+    height:160px;
+    flex-shrink:0;
     object-fit:cover;
     object-position:center 30%;
     border-radius:10px;
-    margin-bottom:14px;
     display:block;
   }
+
+  .card .card-body{flex:1; min-width:0;}
+  .card .card-body h3{margin-bottom:12px;}
 
   .card ul{list-style:none; display:flex; flex-direction:column; gap:8px;}
 
@@ -471,6 +480,8 @@
     .avatar-wrap{justify-content:flex-start; margin-top:20px;}
     .strip, .achieve-grid, .hobby-grid, .contact-grid{grid-template-columns:1fr;}
     .hero h1{font-size:32px;}
+    .card.has-photo{flex-direction:column;}
+    .card.has-photo .photo{width:100%; height:180px;}
   }
 </style>
 </head>
@@ -551,14 +562,16 @@
 
       <h2 class="group">LEADERSHIP EXPERIENCE</h2>
 
-      <div class="card">
-        <span class="tag">GRADE 9–11</span>
-        <h3>Salt and Soil — Supervising Chief</h3>
+      <div class="card has-photo">
         <img class="photo" src="Experiences Photo/salt-and-soil.jpg" alt="Salt and Soil team at a seaweed farm">
-        <ul>
-          <li>Visited a seaweed farm and harvested seaweed to produce nori, and studied how seaweed converts into biofuel.</li>
-          <li>Created an Instagram post covering Indonesian geography, including volcanoes, oceans, and other topography.</li>
-        </ul>
+        <div class="card-body">
+          <span class="tag">GRADE 9–11</span>
+          <h3>Salt and Soil — Supervising Chief</h3>
+          <ul>
+            <li>Visited a seaweed farm and harvested seaweed to produce nori, and studied how seaweed converts into biofuel.</li>
+            <li>Created an Instagram post covering Indonesian geography, including volcanoes, oceans, and other topography.</li>
+          </ul>
+        </div>
       </div>
 
       <div class="card">
