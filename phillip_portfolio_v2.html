@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phillip Owen Gunadi — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#EEF3FC;
+    --panel:#FFFFFF;
+    --border:#E3E9F5;
+    --navy:#16213E;
+    --blue:#3B5FE2;
+    --blue-tint:#DCE6FB;
+    --text-dim:#6B7A99;
+    --sans:'Inter', sans-serif;
+    --display:'Poppins', sans-serif;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  body{
+    background:var(--bg);
+    color:var(--navy);
+    font-family:var(--sans);
+    min-height:100vh;
+  }
+
+  a{color:inherit; text-decoration:none;}
+
+  .app{
+    display:grid;
+    grid-template-columns:280px 1fr;
+    min-height:100vh;
+  }
+
+  /* ===== SIDEBAR ===== */
+  .sidebar{
+    background:var(--panel);
+    border-right:1px solid var(--border);
+    padding:36px 28px;
+    display:flex;
+    flex-direction:column;
+  }
+
+  .logo{
+    font-family:var(--display);
+    font-size:22px;
+    font-weight:700;
+    color:var(--navy);
+    margin-bottom:6px;
+  }
+
+  .logo span{color:var(--blue);}
+
+  .logo-sub{
+    font-size:12px;
+    color:var(--text-dim);
+    margin-bottom:40px;
+  }
+
+  nav.nav-list{
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+  }
+
+  .nav-item{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:12px 14px;
+    border-radius:10px;
+    border:none;
+    background:transparent;
+    cursor:pointer;
+    font-family:var(--display);
+    font-size:14px;
+    font-weight:500;
+    color:var(--text-dim);
+    text-align:left;
+    transition:background 0.2s ease, color 0.2s ease;
+  }
+
+  .nav-item .dot{
+    width:6px; height:6px;
+    border-radius:50%;
+    background:var(--border);
+    flex-shrink:0;
+  }
+
+  .nav-item:hover{background:var(--blue-tint); color:var(--blue);}
+
+  .nav-item.active{
+    background:var(--blue);
+    color:#fff;
+  }
+  .nav-item.active .dot{background:#fff;}
+
+  .sidebar-footer{
+    margin-top:auto;
+    padding-top:24px;
+    border-top:1px solid var(--border);
+  }
+
+  .sidebar-footer .label{
+    font-size:11px;
+    letter-spacing:1px;
+    color:var(--text-dim);
+    margin-bottom:10px;
+    font-weight:600;
+  }
+
+  .social-row{display:flex; gap:10px;}
+
+  .social-row a{
+    width:34px; height:34px;
+    border-radius:50%;
+    background:var(--blue-tint);
+    color:var(--blue);
+    display:flex; align-items:center; justify-content:center;
+    font-size:13px;
+    font-weight:700;
+    transition:background 0.2s ease, color 0.2s ease;
+  }
+
+  .social-row a:hover{background:var(--blue); color:#fff;}
+
+  /* ===== MAIN ===== */
+  main{
+    padding:56px 64px;
+    max-width:1000px;
+  }
+
+  .section{display:none;}
+  .section.active{display:block; animation:fadein 0.35s ease;}
+
+  @keyframes fadein{
+    from{opacity:0; transform:translateY(8px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+
+  /* HERO (About) */
+  .hero{
+    display:grid;
+    grid-template-columns:1fr 300px;
+    gap:40px;
+    align-items:center;
+    margin-bottom:48px;
+  }
+
+  .hero .hello{
+    font-family:var(--display);
+    font-size:16px;
+    color:var(--text-dim);
+    margin-bottom:10px;
+  }
+
+  .hero h1{
+    font-family:var(--display);
+    font-size:44px;
+    font-weight:800;
+    line-height:1.15;
+    margin-bottom:12px;
+  }
+
+  .hero .role{
+    font-family:var(--display);
+    font-size:20px;
+    font-weight:600;
+    color:var(--blue);
+    margin-bottom:10px;
+  }
+
+  .hero .loc{
+    font-size:14px;
+    color:var(--text-dim);
+    margin-bottom:26px;
+  }
+
+  .btn{
+    display:inline-block;
+    background:var(--blue);
+    color:#fff;
+    font-family:var(--display);
+    font-weight:600;
+    font-size:14px;
+    padding:13px 28px;
+    border-radius:8px;
+    border:none;
+    cursor:pointer;
+  }
+
+  .btn:hover{background:#2E4DC4;}
+
+  .avatar-wrap{
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .avatar-wrap .watermark{
+    position:absolute;
+    font-family:var(--display);
+    font-size:100px;
+    font-weight:800;
+    color:var(--blue-tint);
+    z-index:0;
+    white-space:nowrap;
+    user-select:none;
+  }
+
+  .avatar{
+    width:220px; height:220px;
+    border-radius:50%;
+    background:linear-gradient(160deg, var(--blue) 0%, #7C93F0 100%);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--display);
+    font-size:56px;
+    font-weight:800;
+    color:#fff;
+    position:relative;
+    z-index:1;
+    overflow:hidden;
+    box-shadow:0 20px 40px -12px rgba(59,95,226,0.45);
+  }
+
+  .avatar img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+  }
+
+  /* strip */
+  .strip{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:16px;
+    margin-bottom:8px;
+  }
+
+  .strip div{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:20px;
+  }
+
+  .strip .k{
+    font-size:11px;
+    letter-spacing:1px;
+    color:var(--text-dim);
+    font-weight:600;
+    margin-bottom:6px;
+  }
+
+  .strip .v{
+    font-family:var(--display);
+    font-size:15px;
+    font-weight:600;
+  }
+
+  /* section heads */
+  h1.page-title{
+    font-family:var(--display);
+    font-size:34px;
+    font-weight:800;
+    margin-bottom:8px;
+  }
+
+  .page-title span{color:var(--blue);}
+
+  .subtitle{
+    font-size:14px;
+    color:var(--text-dim);
+    margin-bottom:36px;
+    max-width:560px;
+    line-height:1.7;
+  }
+
+  h2.group{
+    font-family:var(--display);
+    font-size:14px;
+    font-weight:600;
+    color:var(--text-dim);
+    margin:32px 0 14px;
+  }
+  h2.group:first-of-type{margin-top:0;}
+
+  /* cards */
+  .card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:22px 24px;
+    margin-bottom:14px;
+  }
+
+  .card .tag{
+    display:inline-block;
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:0.5px;
+    color:var(--blue);
+    background:var(--blue-tint);
+    padding:4px 10px;
+    border-radius:6px;
+    margin-bottom:12px;
+  }
+
+  .card h3{
+    font-family:var(--display);
+    font-size:17px;
+    font-weight:600;
+    margin-bottom:12px;
+  }
+
+  .card ul{list-style:none; display:flex; flex-direction:column; gap:8px;}
+
+  .card li{
+    font-size:14px;
+    color:var(--text-dim);
+    line-height:1.6;
+    padding-left:16px;
+    position:relative;
+  }
+
+  .card li::before{
+    content:"";
+    position:absolute;
+    left:0; top:8px;
+    width:5px; height:5px;
+    border-radius:50%;
+    background:var(--blue);
+  }
+
+  /* achievements */
+  .achieve-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:16px;
+  }
+
+  .achieve-card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:22px;
+  }
+
+  .achieve-card .num{
+    font-family:var(--display);
+    font-size:30px;
+    font-weight:800;
+    color:var(--blue);
+    margin-bottom:6px;
+  }
+
+  .achieve-card .label{
+    font-size:13px;
+    color:var(--text-dim);
+    line-height:1.5;
+  }
+
+  .award-card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-left:4px solid var(--blue);
+    border-radius:10px;
+    padding:20px 22px;
+    margin-bottom:14px;
+  }
+
+  /* hobbies */
+  .hobby-grid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:16px;
+  }
+
+  .hobby-card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:22px;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+
+  .hobby-card .num-badge{
+    width:34px; height:34px;
+    border-radius:10px;
+    background:var(--blue-tint);
+    color:var(--blue);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--display);
+    font-weight:700;
+    font-size:13px;
+    margin-bottom:6px;
+  }
+
+  .hobby-card h3{font-family:var(--display); font-size:16px; font-weight:600;}
+  .hobby-card p{font-size:13px; color:var(--text-dim); line-height:1.6;}
+
+  /* contact */
+  .contact-grid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:16px;
+    max-width:640px;
+  }
+
+  .contact-card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:22px;
+  }
+
+  .contact-card .k{
+    font-size:11px;
+    letter-spacing:1px;
+    color:var(--text-dim);
+    font-weight:600;
+    margin-bottom:8px;
+  }
+
+  .contact-card .v{
+    font-family:var(--display);
+    font-size:15px;
+    font-weight:600;
+  }
+
+  .contact-card .v a:hover{color:var(--blue);}
+
+  footer.note{
+    margin-top:36px;
+    font-size:12px;
+    color:var(--text-dim);
+  }
+
+  @media (max-width: 860px){
+    .app{grid-template-columns:1fr;}
+    .sidebar{
+      flex-direction:row;
+      align-items:center;
+      overflow-x:auto;
+      padding:18px 20px;
+      gap:20px;
+    }
+    .logo, .logo-sub{display:none;}
+    nav.nav-list{flex-direction:row;}
+    .sidebar-footer{display:none;}
+    main{padding:32px 22px;}
+    .hero{grid-template-columns:1fr; text-align:left;}
+    .avatar-wrap{justify-content:flex-start; margin-top:20px;}
+    .strip, .achieve-grid, .hobby-grid, .contact-grid{grid-template-columns:1fr;}
+    .hero h1{font-size:32px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <aside class="sidebar">
+    <div class="logo">Portfolio<span>.</span></div>
+    <div class="logo-sub">Phillip Owen Gunadi</div>
+
+    <nav class="nav-list" id="navList">
+      <button class="nav-item active" data-section="about"><span class="dot"></span>About</button>
+      <button class="nav-item" data-section="experience"><span class="dot"></span>Experience</button>
+      <button class="nav-item" data-section="achievements"><span class="dot"></span>Achievements</button>
+      <button class="nav-item" data-section="hobbies"><span class="dot"></span>Hobbies</button>
+      <button class="nav-item" data-section="contact"><span class="dot"></span>Contact</button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="label">GET IN TOUCH</div>
+      <div class="social-row">
+        <a href="mailto:phillipowengunadi@gmail.com" title="Email">@</a>
+        <a href="tel:08113188985" title="Phone">T</a>
+      </div>
+    </div>
+  </aside>
+
+  <main>
+
+    <!-- ABOUT -->
+    <section class="section active" id="about">
+      <div class="hero">
+        <div>
+          <div class="hello">Hello,</div>
+          <h1>I'm Phillip Owen<br>Gunadi</h1>
+          <div class="role">Student Leader &amp; MUN Secretary General</div>
+          <div class="loc">From Surabaya, Indonesia</div>
+          <button class="btn" onclick="activate('contact')">Get In Touch</button>
+        </div>
+        <div class="avatar-wrap">
+          <div class="watermark">POG</div>
+          <div class="avatar"><img src="Hero foto/hero.jpg" alt="Phillip Owen Gunadi"></div>
+        </div>
+      </div>
+
+      <div class="strip">
+        <div>
+          <div class="k">CURRENT SCHOOL</div>
+          <div class="v">Sekolah Ciputra</div>
+        </div>
+        <div>
+          <div class="k">GRADUATION</div>
+          <div class="v">July 2028</div>
+        </div>
+        <div>
+          <div class="k">PRIOR SCHOOL</div>
+          <div class="v">Singapore National Academy</div>
+        </div>
+      </div>
+
+      <h2 class="group">SUMMARY</h2>
+      <div class="card">
+        <ul>
+          <li>Serves as Secretary General of Sekolah Ciputra Model United Nations, after a year as Deputy Secretary General.</li>
+          <li>Holds the Vice Captain role in OSIS, the school's student government body.</li>
+          <li>Leads TEDx at Sekolah Ciputra as Executive Producer.</li>
+          <li>Interned at Aerofood Catering Services, learning airline food production operations.</li>
+          <li>Speaks fluent English and studies Mandarin Chinese.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section class="section" id="experience">
+      <h1 class="page-title">Work <span>Experience</span></h1>
+      <p class="subtitle">A record of the organizations Phillip has led or built, grouped by leadership, extracurricular, and work experience.</p>
+
+      <h2 class="group">LEADERSHIP EXPERIENCE</h2>
+
+      <div class="card">
+        <span class="tag">GRADE 9–11</span>
+        <h3>Salt and Soil — Supervising Chief</h3>
+        <ul>
+          <li>Visited a seaweed farm and harvested seaweed to produce nori, and studied how seaweed converts into biofuel.</li>
+          <li>Created an Instagram post covering Indonesian geography, including volcanoes, oceans, and other topography.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <span class="tag">GRADE 10–11</span>
+        <h3>Youth Classroom — Member, Executive Director</h3>
+        <ul>
+          <li>Teaches a school English class covering vocabulary, grammar, and pronunciation.</li>
+          <li>Collaborates with Equitech and Gaspemuda to run a curriculum spanning English, History, and Technology.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <span class="tag">GRADE 11</span>
+        <h3>TEDx — Executive Producer</h3>
+      </div>
+
+      <div class="card">
+        <span class="tag">GRADE 11</span>
+        <h3>OSIS — Vice Captain</h3>
+      </div>
+
+      <div class="card">
+        <span class="tag">GRADE 11</span>
+        <h3>Sekolah Ciputra Model United Nations 2026 — Secretary General</h3>
+      </div>
+
+      <div class="card">
+        <span class="tag">GRADE 10</span>
+        <h3>Sekolah Ciputra Model United Nations 2026 — Deputy Secretary General</h3>
+        <ul>
+          <li>Organized the event: placards and placard design, food, chair appointment and training, and budgeting.</li>
+          <li>Produced a conference for 20 to 30 schools, 150 participants, and 5 councils.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <span class="tag">GRADE 9–10</span>
+        <h3>Inspire Rise — Head of Operations</h3>
+        <ul>
+          <li>Taught English, science experiments, and hands-on activities at underprivileged schools.</li>
+          <li>Donated books, shoes, and clothes to 50 students.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <span class="tag">GRADE 10</span>
+        <h3>Interdisciplinary Unit — Head of Musical Performance</h3>
+        <ul>
+          <li>Organized the performance for a creative exhibition and led the musical performance department.</li>
+          <li>Coordinated music selection for the performance and appointed the musicians.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <span class="tag">GRADE 10</span>
+        <h3>Hanoi Park Clean Up Effort — Leader</h3>
+        <ul>
+          <li>Cleaned waste from the park and sorted it into the correct bins.</li>
+        </ul>
+      </div>
+
+      <h2 class="group">EXTRACURRICULAR EXPERIENCE</h2>
+
+      <div class="card">
+        <span class="tag">GRADE 10–11</span>
+        <h3>Equitech — Member</h3>
+        <ul>
+          <li>Teaches students at partner schools how AI is reshaping the world and how to write prompts that achieve a desired outcome.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <span class="tag">GRADE 9–10</span>
+        <h3>OSIS — Events Member</h3>
+        <ul>
+          <li>Organized logistics for incoming teams at Ciputra Cup, so they could compete.</li>
+          <li>Ran bazaar games that raised IDR 8 million for donation.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <span class="tag">GRADE 9</span>
+        <h3>OSIS — Marketing Member</h3>
+        <ul>
+          <li>Distributed flyers across Surabaya schools to raise awareness of a Halloween event.</li>
+          <li>Greeted and hosted key stakeholders at the event.</li>
+          <li>Helped donate IDR 100,000,000 to UNICEF for a nutrition garden in Sumba, in partnership with Wahana Visi Indonesia.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <span class="tag">GRADE 7–10</span>
+        <h3>World Scholar's Cup — Participant, Volunteer</h3>
+        <ul>
+          <li>Competed in debate, writing, and the scholar's challenge.</li>
+          <li>Volunteered to run the event at Sekolah Ciputra, ushering attendees and collecting judges' scoresheets.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <span class="tag">GRADE 10</span>
+        <h3>Irama Meraki — Member</h3>
+        <ul>
+          <li>Invited 10 musicians to perform for free as part of a donation fundraiser, and sold merchandise, food, and drinks.</li>
+          <li>Raised funds for orphanage homes.</li>
+        </ul>
+      </div>
+
+      <h2 class="group">WORK EXPERIENCE / INTERNSHIP</h2>
+
+      <div class="card">
+        <span class="tag">GRADE 10</span>
+        <h3>Aerofood Catering Services — Intern</h3>
+        <ul>
+          <li>Learned administrative, sales, and operations work for food packaging, covering the production chain in an airline service.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ACHIEVEMENTS -->
+    <section class="section" id="achievements">
+      <h1 class="page-title">Track <span>Record</span></h1>
+      <p class="subtitle">Awards and measurable results from Phillip's leadership and volunteer work.</p>
+
+      <h2 class="group">AWARDS</h2>
+      <div class="award-card">
+        <span class="tag">GRADE 10</span>
+        <h3 style="margin-bottom:0;">Distinction, ABRSM Grade 8 Piano</h3>
+      </div>
+
+      <h2 class="group">BY THE NUMBERS</h2>
+      <div class="achieve-grid">
+        <div class="achieve-card">
+          <div class="num">150+</div>
+          <div class="label">Participants at Sekolah Ciputra MUN, across 20 to 30 schools and 5 councils</div>
+        </div>
+        <div class="achieve-card">
+          <div class="num">IDR 8M</div>
+          <div class="label">Raised through OSIS bazaar games and donated to charity</div>
+        </div>
+        <div class="achieve-card">
+          <div class="num">IDR 100M</div>
+          <div class="label">Donated to UNICEF for a nutrition garden in Sumba, with Wahana Visi Indonesia</div>
+        </div>
+        <div class="achieve-card">
+          <div class="num">50</div>
+          <div class="label">Students supported with donated books, shoes, and clothes through Inspire Rise</div>
+        </div>
+        <div class="achieve-card">
+          <div class="num">10</div>
+          <div class="label">Musicians invited to perform at an Irama Meraki fundraiser for orphanage homes</div>
+        </div>
+        <div class="achieve-card">
+          <div class="num">2</div>
+          <div class="label">Consecutive years on the Sekolah Ciputra MUN executive team</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOBBIES -->
+    <section class="section" id="hobbies">
+      <h1 class="page-title">Off <span>Duty</span></h1>
+      <p class="subtitle">What Phillip spends time on outside school leadership.</p>
+
+      <div class="hobby-grid">
+        <div class="hobby-card">
+          <div class="num-badge">01</div>
+          <h3>Aviation industry</h3>
+          <p>Follows airline operations, flight tracking, and airport design. Interned at Aerofood Catering Services to see airline food production up close.</p>
+        </div>
+        <div class="hobby-card">
+          <div class="num-badge">02</div>
+          <h3>Piano</h3>
+          <p>Holds a Distinction in ABRSM Grade 8 Piano and led the musical performance department for a school interdisciplinary unit.</p>
+        </div>
+        <div class="hobby-card">
+          <div class="num-badge">03</div>
+          <h3>Cooking</h3>
+          <p>Cooks as a regular hobby alongside his academic and leadership schedule.</p>
+        </div>
+        <div class="hobby-card">
+          <div class="num-badge">04</div>
+          <h3>Public speaking</h3>
+          <p>Built through years of Model United Nations chairing, debate, and event hosting.</p>
+        </div>
+      </div>
+
+      <h2 class="group">LANGUAGES</h2>
+      <div class="strip">
+        <div>
+          <div class="k">ENGLISH</div>
+          <div class="v">Fluent</div>
+        </div>
+        <div>
+          <div class="k">MANDARIN CHINESE</div>
+          <div class="v">Learning</div>
+        </div>
+        <div>
+          <div class="k">INDONESIAN</div>
+          <div class="v">Native</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section" id="contact">
+      <h1 class="page-title">Get In <span>Touch</span></h1>
+      <p class="subtitle">Reach Phillip directly through the details below.</p>
+
+      <div class="contact-grid">
+        <div class="contact-card">
+          <div class="k">EMAIL</div>
+          <div class="v"><a href="mailto:phillipowengunadi@gmail.com">phillipowengunadi@gmail.com</a></div>
+        </div>
+        <div class="contact-card">
+          <div class="k">PHONE</div>
+          <div class="v"><a href="tel:08113188985">0811 3188 985</a></div>
+        </div>
+        <div class="contact-card" style="grid-column:1 / -1;">
+          <div class="k">ADDRESS</div>
+          <div class="v">Graha Family Blok H36, Surabaya, Jawa Timur 60226</div>
+        </div>
+      </div>
+
+      <footer class="note">Thanks for visiting Phillip's portfolio.</footer>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  const items = document.querySelectorAll('.nav-item');
+  const sections = document.querySelectorAll('.section');
+
+  function activate(sectionId){
+    sections.forEach(s => s.classList.toggle('active', s.id === sectionId));
+    items.forEach(btn => btn.classList.toggle('active', btn.dataset.section === sectionId));
+  }
+
+  items.forEach(btn => {
+    btn.addEventListener('click', () => activate(btn.dataset.section));
+  });
+</script>
+
+</body>
+</html>
